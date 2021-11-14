@@ -1,0 +1,31 @@
+@startuml
+
+skinparam shadowing false
+hide empty methods
+hide empty fields
+
+interface Print{
+    + {abstract}printWeak()
+    + {abstract}printStrong()
+}
+note right: 必要とされているもの
+
+class Banner{
+    - string
+    + showWithParen()
+    + showWithAster()
+}
+note bottom: すでに存在するもの
+
+class Main
+
+class PrintBanner<<Adapter>> implements Print{
+    - banner
+    + printWeak()
+    + printStrong()
+}
+
+Main -> Print: use
+PrintBanner o- Banner
+
+@enduml

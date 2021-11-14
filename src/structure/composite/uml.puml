@@ -1,0 +1,42 @@
+@startuml
+
+skinparam shadowing false
+hide empty methods
+hide empty fields
+
+abstract class Entry {
+    + {abstract}getName()
+    + {abstract}getSize()
+    + add()
+    + printList()
+    # {abstract}printList(prefix)
+    + toString()
+}
+
+class File extends Entry {
+    - name
+    - size
+    + getName()
+    + getSize()
+    + printList()
+    # printList(prefix)
+}
+
+class Directory extends Entry {
+    - name
+    - directory
+    + getName()
+    + getSize()
+    + add()
+    # printList()
+}
+
+class FileTreatmentException
+class Main
+
+Directory o-> Entry
+Main --> Directory: create
+Main --> File: create
+Main -> Entry: 再帰的に利用
+
+@enduml

@@ -1,0 +1,43 @@
+@startuml
+
+skinparam shadowing false
+hide empty methods
+hide empty fields
+
+rectangle 機能クラスの層{
+    class Display{
+        - impl
+        + open()
+        + print()
+        + close()
+        + display()
+    }
+    class CountDisplay extends Display{
+        + multiDisplay()
+    }
+}
+
+rectangle 実装クラスの層{
+    abstract class DisplayImpl{
+        + {abstract}rawOpen()
+        + {abstract}rawPrint()
+        + {abstract}rawClose()
+    }
+    class StringDisplayImpl extends DisplayImpl{
+        - string
+        - width
+        + rawOpen()
+        + rawPrint()
+        + rawClose()
+        - printLine()
+    }
+}
+
+class Main
+
+Main -> Display: use
+Main -> CountDisplay: use
+Display o- DisplayImpl
+
+
+@enduml

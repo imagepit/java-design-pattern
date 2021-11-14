@@ -1,0 +1,64 @@
+@startuml
+
+skinparam shadowing false
+hide empty methods
+hide empty fields
+
+package factory {
+    abstract class Factory{
+        + {static}getFactory()
+        + {abstract}createLink()
+        + {abstract}createTray()
+        + {abstract}createPage()
+    }
+    abstract class Item{
+        - caption
+        + {abstract}makeHTML()
+    }
+    abstract class Link extends Item {
+        # url
+    }
+    abstract class Page{
+        # title
+        # author
+        # content
+        + add()
+        + output()
+        + {abstract}makeHTML()
+    }
+    abstract class Tray extends Item {
+        # tray
+        + add()
+    }
+
+
+    Factory --> Link:create
+    Factory --> Tray:create
+    Factory --> Page:create
+}
+
+package listfactory {
+    class ListLink extends Link {
+        + makeHTML()
+    }
+    class ListTray extends Tray {
+        + makeHTML()
+    }
+    class ListPage extends Page {
+        + makeHTML()
+    }
+    class ListFactory extends Factory{
+        + createLink()
+        + createTray()
+        + createPage()
+    }
+}
+
+class Main
+
+Main --> Factory
+ListFactory --> ListLink:create
+ListFactory --> ListTray:create
+ListFactory --> ListPage:create
+
+@enduml

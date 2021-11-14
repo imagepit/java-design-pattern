@@ -1,0 +1,11 @@
+@startuml
+
+skinparam shadowing false
+
+class Singleton {
+    - {static}singleton
+    - Singleton()
+    + {static}getInstance()
+}
+
+@enduml

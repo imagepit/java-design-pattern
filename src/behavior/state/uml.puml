@@ -1,0 +1,53 @@
+@startuml
+
+skinparam shadowing false
+hide empty methods
+hide empty fields
+
+interface State {
+     + {abstract} doClock(Context)
+     + {abstract} doUse(Context)
+     + {abstract} doAlam(Context)
+     + {abstract} doPhone(Context)
+}
+
+class DayState implements State {
+    - singleton
+    - DayState()
+    + {static} getInstance()
+    + doClock()
+    + doUse()
+    + doAlam()
+    + doPhone()
+}
+
+class NightState implements State {
+    - singleton
+    - NightState()
+    + {static} getInstance()
+    + doClock()
+    + doUse()
+    + doAlam()
+    + doPhone()
+}
+
+interface Context {
+    + {abstract} setClock()
+    + {abstract} changeState()
+    + {abstract} callSecurityCenter()
+    + {abstract} recordLog()
+}
+
+class SafeFrame implements Context {
+    - state
+    + setClock()
+    + changeState()
+    + callSecurityCenter()
+    + recordLog()
+}
+
+Context <- State: use
+SafeFrame o-> State
+Main -> SafeFrame
+
+@enduml

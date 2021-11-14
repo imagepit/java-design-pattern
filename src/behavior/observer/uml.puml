@@ -1,0 +1,36 @@
+@startuml
+
+skinparam shadowing false
+hide empty fields
+hide empty methods
+
+interface Observer {
+    + {abstract} update()
+}
+
+class DigitObserver implements Observer {
+    + update()
+}
+class GraphObserver implements Observer {
+    + update()
+}
+
+class NumberGenerator {
+    - observers
+    + addObserver()
+    + deleteObserver()
+    + notifyObservers()
+    + {abstract}getNumber()
+    + {abstract}execute()
+}
+
+class RandomNumberGenerator extends NumberGenerator {
+    - random
+    - number
+    + getNumber()
+    + execute()
+}
+
+Main -> NumberGenerator
+NumberGenerator o-> Observer
+@enduml

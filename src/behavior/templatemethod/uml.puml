@@ -1,0 +1,32 @@
+@startuml
+
+skinparam shadowing false
+hide empty methods
+hide empty fields
+abstract class AbstractDisplay{
+    + {abstract}open()
+    + {abstract}print()
+    + {abstract}close()
+    + display()
+}
+class CharDisplay extends AbstractDisplay{
+    - ch
+    + CharDisplay(char)
+    + open()
+    + print()
+    + close()
+}
+class StringDisplay extends AbstractDisplay{
+    - string
+    - width
+    + StringDisplay(String)
+    + open()
+    + print()
+    + close()
+    - printLine()
+}
+class Main
+
+Main -> AbstractDisplay
+
+@enduml

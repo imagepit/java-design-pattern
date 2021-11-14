@@ -1,0 +1,61 @@
+@startuml
+
+skinparam shadowing false
+hide empty fields
+hide empty methods
+
+class Player{
+    - name
+    - strategy
+    - wincount
+    - losecount
+    - gamecount
+    + Player(name,strategy)
+    + nextHand()
+    + win()
+    + lose()
+    + even()
+    + toString()
+}
+
+interface Strategy{
+    + nextHand()
+    + study()
+}
+
+class Hand {
+    + {static} HANDVALUE_GUU
+    + {static} HANDVALUE_CHO
+    + {static} HANDVALUE_PAA
+    + getHand()
+    + isStrongerThan()
+    + isWeakerThan()
+    + fight()
+    + toString()
+}
+
+class WinningStrategy implements Strategy{
+    - random
+    - won
+    - prevHand
+    + WinningStrategy(seed)
+    + nextHand()
+    + study(win)
+}
+
+class ProbStrategy implements Strategy{
+    - random
+    - prevHandValue
+    - currentHandValue
+    - history
+    + ProbStrategy(seed)
+    + nextHand()
+    + study(win)
+    - getSum()
+}
+
+Player o-> Strategy
+Strategy o-> Hand
+Main -> Player
+
+@enduml

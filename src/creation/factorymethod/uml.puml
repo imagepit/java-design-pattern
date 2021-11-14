@@ -1,0 +1,37 @@
+@startuml
+
+skinparam shadowing false
+hide empty methods
+hide empty fields
+
+package framework {
+    abstract class Factory {
+        + create()
+        + createProduct()
+        + registerProduct()
+    }
+    abstract class Product {
+        + use
+    }
+}
+
+package idcard {
+    class IDCardFactory extends Factory {
+        - owners
+        + createProduct()
+        + registerProduct()
+        + getOwners()
+    }
+    class IDCard extends Product {
+        - owner
+        + getOwner()
+    }
+}
+
+class Main
+
+Factory -> Product: create
+IDCardFactory -> IDCard: create
+Main --> Factory: use
+
+@enduml

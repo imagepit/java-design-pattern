@@ -1,0 +1,43 @@
+@startuml
+
+skinparam shadowing false
+hide empty fields
+hide empty methods
+
+
+class Director{
+    - builder
+    + construct(Builder)
+}
+note bottom: Builderの実装クラスを\n交換可能
+
+abstract class Builder{
+    + makeTitle()
+    + makeString()
+    + makeItem()
+    + close
+}
+class TextBuilder extends Builder {
+    - buffer
+    + makeTitle()
+    + makeString()
+    + makeItem()
+    + close
+    + getResult()
+}
+class HTMLBuilder extends Builder {
+    - filename
+    - writer
+    + makeTitle()
+    + makeString()
+    + makeItem()
+    + close
+    + getResult()
+}
+
+class Main
+
+Director o- Builder
+Main -> Director : use
+
+@enduml

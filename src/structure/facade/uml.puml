@@ -1,0 +1,30 @@
+@startuml
+
+skinparam shadowing false
+hide empty fields
+hide empty methods
+
+package pagemaker {
+    class Database {
+        + getProperties()
+    }
+    class HtmlWriter {
+        - writer
+        + title()
+        + paragraph()
+        + link()
+        + mailto()
+        + close()
+    }
+    class PageMaker {
+        + makeWelcomePage()
+    }
+}
+
+class Main
+
+Main -> PageMaker: use
+PageMaker -> Database: use
+PageMaker --> HtmlWriter: use
+
+@enduml

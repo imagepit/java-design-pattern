@@ -1,0 +1,38 @@
+@startuml
+
+skinparam shadowing false
+hide empty methods
+hide empty fields
+
+interface Iterator{
+    hasNext()
+    next()
+}
+interface Aggregate{
+    iterator()
+}
+class Book{
+    - name
+    - getName()
+}
+class BookShelfIterator{
+    - bookShelf
+    - index
+    + hasNext()
+    + next()
+}
+class BookShelf{
+    - books
+    - last
+    + getBookAt()
+    + appendBook()
+    + getLength()
+    + iterator()
+}
+BookShelf o- Book
+BookShelfIterator o- BookShelf
+Iterator <|.. BookShelfIterator
+Aggregate <|.. BookShelf
+Iterator <- Aggregate
+
+@enduml

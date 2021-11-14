@@ -1,0 +1,38 @@
+@startuml
+
+skinparam shadowing false
+hide empty methods
+hide empty fields
+
+abstract class Display {
+    + {abstract}getColumn()
+    + {abstract}getRows()
+    + {abstract}getRowText()
+    + show()
+}
+class StringDisplay extends Display {
+    - string
+    + getColumns()
+    + getRows()
+    + getRowText()
+}
+abstract class Border extends Display {
+    # display
+    # Border(Display)
+}
+class SideBorder extends Border {
+    - borderChar
+    + getColumns()
+    + getRows()
+    + getRowText()
+}
+class FullBorder extends Border {
+    + getColumns()
+    + getRows()
+    + getRowText()
+    - makeLine()
+}
+
+Border o--> Display
+Main -> Display
+@enduml

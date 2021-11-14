@@ -1,0 +1,49 @@
+@startuml
+
+skinparam shadowing false
+hide empty methods
+hide empty fields
+
+class Main {
+    - history
+    - canvas
+    - clearButton
+}
+
+package command{
+    interface Command {
+        + {abstract}execute()
+    }
+    class MacroCommand implements Command {
+        - commands
+        + execute()
+        + append()
+        + undo()
+        + clear()
+    }
+}
+
+package drawer{
+    interface Drawable {
+        + draw()
+    }
+    class DrawCommand implements Command {
+        # drawable
+        - position
+        + execute()
+    }
+    class DrawCanvas implements Drawable {
+        - color
+        - radius
+        - history
+        + paint()
+        + draw()
+    }
+}
+
+Main o-> DrawCanvas
+Main o-> MacroCommand
+DrawCanvas o-> MacroCommand
+DrawCommand o-> Drawable
+
+@enduml
